@@ -1,30 +1,30 @@
-import type { LoaderArgs } from '@remix-run/node';
-import { defer } from '@remix-run/node'
-import { Await, useLoaderData } from "@remix-run/react";
+import type { LoaderArgs } from "@remix-run/node";
+import { defer } from "@remix-run/node";
+import { Await, Link, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
 
 async function fastData() {
-  return { hello: 'fast data' }
+  return { hello: "fast data" };
 }
 
 async function slowData() {
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-  return { hello: 'slow data' }
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return { hello: "slow data" };
 }
 
 export async function loader({ request }: LoaderArgs) {
-
   return defer({
     fastData: fastData(),
     slowData: slowData(),
-  })
+  });
 }
 
 export default function Index() {
-  const { fastData, slowData } = useLoaderData() as any
+  const { fastData, slowData } = useLoaderData() as any;
 
   return (
     <div>
+      <Link to="/page2">Go to another page to test CSR</Link>
       <h1>Fast Data</h1>
       <Suspense fallback={"Loading fast data..."}>
         <Await resolve={fastData}>
