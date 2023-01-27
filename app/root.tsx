@@ -1,18 +1,12 @@
-import type { MetaFunction } from "@remix-run/node";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
+  ScrollRestoration
 } from "@remix-run/react";
-
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "New Remix App",
-  viewport: "width=device-width,initial-scale=1",
-});
 
 export default function App() {
   return (
@@ -22,6 +16,19 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Works on all browsers</Link>
+            </li>
+            <li>
+              <Link to="/all-but-safari">Broken on safari</Link>
+            </li>
+            <li>
+              <Link to="/workaround">Sketchy workaround</Link>
+            </li>
+          </ul>
+        </nav>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
